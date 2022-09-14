@@ -4,7 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Categoris from '../Categoris';
 import AddSreen from '../AddSreen';
 import Settings from '../Settings';
-import SignInPage from '../../SingIn';
+import Catagari1 from '../Catagari1';
+import LogInPage from '../LogInPage'
 
 
 const Stack = createNativeStackNavigator();
@@ -24,25 +25,25 @@ const ProductStack = () => {
     )
 }
 
-const SettingsStack = () => {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name='Settings' component={Settings}
-                options={{
-                    headerShown: false,
-                }} />
-        </Stack.Navigator>
-    )
-}
+// const SettingsStack = () => {
+//     return (
+//         <Stack.Navigator>
+//             <Stack.Screen name='Settings' component={Settings}
+//                 options={{
+//                     headerShown: false,
+//                 }} />
+//         </Stack.Navigator>
+//     )
+// }
 
-const LogInStack = () => {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name='SignInPage' component={SignInPage}
-                options={{
-                    headerShown: false,
-                }} />
-        </Stack.Navigator>
-    )
-}
-export { ProductStack ,SettingsStack,LogInStack }
+// const LogInStack = () => {
+//     return (
+//         <Stack.Navigator>
+//             <Stack.Screen name='SignInPage' component={LogInPage}
+//                 options={{
+//                     headerShown: false,
+//                 }} />
+//         </Stack.Navigator>
+//     )
+// }
+export { ProductStack}

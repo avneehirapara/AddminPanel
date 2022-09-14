@@ -6,21 +6,20 @@ import { NavigationContainer } from '@react-navigation/native'
 import { DrawerNavgation } from './AddminPanel/Route/DrowarNavigation'
 import LogInPage from './AddminPanel/LogInPage'
 import SignUp from './AddminPanel/SignupPage'
-
+import { Provider } from 'react-redux'
+import { configstoreg } from './AddminPanel/redux/reducer/store'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
+     
 
+  let store = configstoreg();
   return (
-    
-    // <>
-    // {/* <Categoris /> */}
-    // {/* <AddSreen /> */}
-    // {/* <LogInPage /> */}
-    // {/* <SignUp /> */}
-    // </>
-
-    <NavigationContainer>
-       <DrawerNavgation />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <DrawerNavgation />
+      </NavigationContainer>
+    </Provider>
   )
 }
