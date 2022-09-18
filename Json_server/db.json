@@ -2,92 +2,208 @@
   "Catageri": [
     {
       "id": 1,
-      "image": "./assets/imges/saree.jpeg",
-      "product": "Women Ethnic1"
+      "name": "Women ",
+      "description": "description"
     },
     {
       "id": 2,
-      "image": "require('../AddminPanel/assets/imges/womanvwsten.webp')",
-      "product": " Women cloths"
+      "name": " Women cloths",
+      "description": " description"
     },
     {
       "id": 3,
-      "image": " require('../AddminPanel/assets/imges/men.webp')",
-      "product": "Men"
+      "name": "Men",
+      "description": "description "
     },
     {
       "id": 4,
-      "image": " require('../AddminPanel/assets/imges/kids.jpeg')",
-      "product": "Kids"
+      "name": "Kids",
+      "description": "description"
     },
     {
       "id": 5,
-      "image": "require('../AddminPanel/assets/imges/kichen.jpeg')",
-      "product": "Home & Kichen"
+      "name": "Home & Kichen999",
+      "description": "description"
     },
     {
       "id": 6,
-      "image": " require('../AddminPanel/assets/imges/beautyhelth.webp')",
-      "product": "Beauty & helth"
+      "name": "Beauty & helth",
+      "description": "description"
     },
     {
       "id": 7,
-      "image": " require('../AddminPanel/assets/imges/accessaris.jpg')",
-      "product": "Jwallry & Accessaris"
+      "name": "Jwallry & Accessaris",
+      "description": "description"
     },
     {
       "id": 8,
-      "image": " require('../AddminPanel/assets/imges/FootWare.jpg')",
-      "product": "Bag & FootWare"
+      "name": "Bag & FootWare",
+      "description": "description"
     },
     {
       "id": 9,
-      "image": " require('../AddminPanel/assets/imges/Electronic.webp')",
-      "product": "Electronic"
+      "name": "Electronic",
+      "description": "description)"
     },
     {
       "id": 10,
-      "image": "require('../AddminPanel/assets/imges/Feetness.jpeg')",
-      "product": "Sports & Feetness"
+      "name": "Sports & Feetness",
+      "description": "description"
     },
     {
       "id": 11,
-      "image": "require('../AddminPanel/assets/imges/Office.webp')",
-      "product": "Office Supplies"
+      "name": "Office Supplies",
+      "description": "description"
     },
     {
       "id": 12,
-      "image": "require('../AddminPanel/assets/imges/Food.jpeg')",
-      "product": " Food & Dricks"
+      "name": " Food & Dricks",
+      "description": "description"
     },
     {
       "id": 13,
-      "image": " require('../AddminPanel/assets/imges/Pet.jpeg')",
-      "product": " Pet SUpplies"
+      "name": " Pet SUpplies",
+      "description": "description"
     },
     {
       "id": 14,
-      "image": "require('../AddminPanel/assets/imges/Musical.jpeg')",
-      "product": "Music"
+      "name": "Music",
+      "description": "description"
     },
     {
       "id": 15,
-      "image": " require('../AddminPanel/assets/imges/Books.webp')",
-      "product": "Books"
+      "name": "Books",
+      "description": "description"
+    },
+    {
+      "name": "hey",
+      "description": "description",
+      "id": 16
+    },
+    {
+      "name": "bet",
+      "description": "description",
+      "id": 17
+    },
+    {
+      "name": "aa",
+      "description": "aaa",
+      "id": 18
+    },
+    {
+      "name": "no",
+      "description": "mp",
+      "id": 19
+    },
+    {
+      "name": "finally",
+      "description": "yehh",
+      "id": 20
+    },
+    {
+      "name": "yeaa",
+      "description": "****",
+      "id": 21
+    },
+    {
+      "name": "",
+      "description": "",
+      "id": 22
+    },
+    {
+      "name": "//",
+      "description": "",
+      "id": 23
     }
   ],
-  "data2": [
+  "products": [
     {
       "id": 1,
-      "Price": "100"
+      "name": "COTTON SAREE",
+      "rating": 4.9,
+      "description": "description"
     },
     {
       "id": 2,
-      "Price": "200"
+      "name": "BANARASI SAREE",
+      "rating": 4.9,
+      "description": "description"
     },
     {
       "id": 3,
-      "Price": "300"
+      "name": "NET SAREE",
+      "rating": 4.9,
+      "description": "description"
+    },
+    {
+      "id": 4,
+      "name": "FESTIVEL SAREE",
+      "rating": 4.9,
+      "description": "description"
+    },
+    {
+      "id": 5,
+      "name": "BRIDAL SAREE",
+      "rating": 4.9,
+      "description": "description"
+    },
+    {
+      "id": 6,
+      "name": "KANGEE SAREE",
+      "rating": 4.9,
+      "description": "description"
+    },
+    {
+      "id": 7,
+      "name": "NAVRATRI",
+      "rating": 4.9,
+      "description": "description"
+    },
+    {
+      "id": 8,
+      "name": "SILK SAREE",
+      "rating": 4.9,
+      "description": "description"
+    },
+    {
+      "name": "1",
+      "description": "11",
+      "id": 9
+    },
+    {
+      "name": "22",
+      "description": "22",
+      "id": 10
+    },
+    {
+      "name": "23",
+      "description": "33",
+      "rating": "3.4",
+      "id": 11
+    },
+    {
+      "name": "aa",
+      "description": "ss",
+      "rating": "12",
+      "id": 12
+    },
+    {
+      "name": "last",
+      "description": "lastee",
+      "rating": "rate",
+      "id": 13
+    },
+    {
+      "name": "123",
+      "description": "321",
+      "rating": "122",
+      "id": 14
+    },
+    {
+      "name": "yeaa",
+      "description": "**",
+      "rating": "***",
+      "id": 15
     }
   ]
 }

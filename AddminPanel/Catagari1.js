@@ -38,7 +38,7 @@ export default function Catagari1() {
 
   const Price = useSelector(state => state.Price)
 
-  console.log(Price.Price);
+  // console.log(Price.Price);
   return (
     <>
       {

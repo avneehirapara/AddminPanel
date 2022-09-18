@@ -2,39 +2,37 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Categoris from '../Categoris';
-import AddSreen from '../AddSreen';
+import ProductSreen from '../ProductSreen';
 import Settings from '../Settings';
-import Catagari1 from '../Catagari1';
-import LogInPage from '../LogInPage'
 
 
 const Stack = createNativeStackNavigator();
 
-const ProductStack = () => {
+const CatagoryStack = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Home" component={Categoris}
                 options={{
                     headerShown: false,
                 }} />
-            <Stack.Screen name="AddSreen" component={AddSreen}
+            <Stack.Screen name="ProductSreen" component={ProductSreen}
+                // options={{
+                //     headerShown: false, }} 
+                    />
+        </Stack.Navigator>
+    )
+}
+
+const SettingsStack = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name='Settings' component={Settings}
                 options={{
                     headerShown: false,
                 }} />
         </Stack.Navigator>
     )
 }
-
-// const SettingsStack = () => {
-//     return (
-//         <Stack.Navigator>
-//             <Stack.Screen name='Settings' component={Settings}
-//                 options={{
-//                     headerShown: false,
-//                 }} />
-//         </Stack.Navigator>
-//     )
-// }
 
 // const LogInStack = () => {
 //     return (
@@ -46,4 +44,4 @@ const ProductStack = () => {
 //         </Stack.Navigator>
 //     )
 // }
-export { ProductStack}
+export { CatagoryStack ,SettingsStack}

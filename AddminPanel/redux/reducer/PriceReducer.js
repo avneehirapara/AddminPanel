@@ -8,7 +8,7 @@ let initvalue = {
 
 
 export const PriceReducer = (state=initvalue, action) => {
-    console.log(action.type, action.payload);
+    // console.log(action.type, action.payload);
     switch(action.type){
         case ActionType.GET_PRICE:
             return{

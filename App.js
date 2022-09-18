@@ -9,10 +9,9 @@ import SignUp from './AddminPanel/SignupPage'
 import { Provider } from 'react-redux'
 import { configstoreg } from './AddminPanel/redux/reducer/store'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import ProductSreen from './AddminPanel/ProductSreen'
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
-     
 
   let store = configstoreg();
   return (
@@ -20,6 +19,9 @@ export default function App() {
       <NavigationContainer>
         <DrawerNavgation />
       </NavigationContainer>
+      {/* <ProductSreen /> */}
+      {/* <LogInPage/> */}
+      {/* <SignUp/> */}
     </Provider>
   )
 }

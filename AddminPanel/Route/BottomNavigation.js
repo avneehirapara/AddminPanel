@@ -1,5 +1,6 @@
+import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { ProductStack, SettingsStack } from './StackNavigation';
+import { CatagoryStack, SettingsStack } from './StackNavigation';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
@@ -27,7 +28,7 @@ export const BottomNavigation =() => {
     
           })}
         >
-          <Tab.Screen name="Home" component={ProductStack}
+          <Tab.Screen name="Home" component={CatagoryStack}
             options={{
               headerShown: false
             }} />

@@ -1,3 +1,4 @@
+import { concat } from 'react-native-reanimated'
 import * as ActionType from '../reducer/ActionType'
 
 
@@ -8,9 +9,9 @@ let initvalue = {
     error: ''
 }
 export const CatedryReducer = (state = initvalue, action) => {
-    console.log(action.type, action.payload);
+    // console.log( action.type, action.payload);
     switch (action.type) {
-        case ActionType.GET_Categary:
+        case ActionType.GET_CATEGORY:
             return {
                 ...state,
                 isLoading: false,
@@ -31,6 +32,21 @@ export const CatedryReducer = (state = initvalue, action) => {
                 Catagaris: state.Catagaris.filter((c) => c.id != action.payload),
                 error: ''
             }
+        case ActionType.UPDATE_CATEGORY:
+            return {
+                ...state,
+                isLoading: false,
+                Catagaris: state.Catagaris.map((c) => {
+                    if (c.id === action.payload.id) {
+                        return action.payload
+                    } else {
+                        return c
+                    }
+                }),
+                error: ''
+            }
+
+
         default:
             return state
     }
