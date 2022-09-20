@@ -3,7 +3,7 @@ import * as ActionType from '../reducer/ActionType'
 
 export const getcategry = () => (dispatch) => {
     try {
-        fetch(BASE_URL + "Catageri")
+        fetch(BASE_URL + "Catageri/")
             .then((response) => response.json())
             .then((data) => dispatch({ type: ActionType.GET_CATEGORY, payload: data }))
             .catch((error) => console.log(error))
@@ -16,7 +16,7 @@ export const getcategry = () => (dispatch) => {
 export const addCategory = (data) => (dispatch) => {
     // console.log(data);
     try {
-        fetch( BASE_URL +'Catageri', {
+        fetch( BASE_URL +'Catageri/', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export const addCategory = (data) => (dispatch) => {
 export const deleteCategory = (id) => (dispatch) => {
     // console.log(id);/
     try {
-        fetch(BASE_URL +'Catageri' +id, {
+        fetch(BASE_URL +'Catageri/' +id, {
             method: 'DELETE'
         })
             .then(dispatch({type: ActionType.DELETE_CATEGORY, payload:id}))
@@ -55,9 +55,9 @@ export const deleteCategory = (id) => (dispatch) => {
 }
 
 export const updateCategory = (data) => (dispatch) => {
-    // console.log(data);
+    console.log(data,"yesssssss");
     try {
-        fetch(BASE_URL +'Catageri',+ data.id, {
+        fetch(BASE_URL +'Catageri/'+ data.id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

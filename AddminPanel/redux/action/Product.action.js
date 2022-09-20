@@ -4,7 +4,7 @@ import * as ActionType from '../reducer/ActionType'
 
 export const getproduct = () => (dispatch) => {
    try {
-      fetch(BASE_URL + 'products')
+      fetch(BASE_URL + 'products/')
          .then((response) => response.json())
          .then((data) => dispatch({type:ActionType.GET_PRODUCT , payload:data}))
          .catch((error) => console.log(error))
@@ -17,7 +17,7 @@ export const getproduct = () => (dispatch) => {
 export const addProduct = (data) => (dispatch) => {
 //    console.log("yess",data);
      try{
-      fetch( BASE_URL+'products', {
+      fetch( BASE_URL+'products/', {
          method: 'POST', 
          headers: {
              'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export const addProduct = (data) => (dispatch) => {
 export const deleteProduct  = (id) => (dispatch) => {
     // console.log("here" + id);
     try{
-        fetch( BASE_URL+'products' + id, {
+        fetch( BASE_URL+'products/' + id, {
            method: 'DELETE', 
        })
            .then((response) => response.json())
@@ -62,7 +62,7 @@ export const deleteProduct  = (id) => (dispatch) => {
 export const EditProduct = (data) => (dispatch) => {
     //    console.log("yessEDIT",data);
          try{
-          fetch( BASE_URL+'products' + data.id, {
+          fetch( BASE_URL+'products/' + data.id, {
              method: 'PUT', 
              headers: {
                  'Content-Type': 'application/json',

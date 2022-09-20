@@ -2,7 +2,7 @@
   "Catageri": [
     {
       "id": 1,
-      "name": "Women ",
+      "name": "Women",
       "description": "description"
     },
     {
@@ -69,59 +69,14 @@
       "id": 14,
       "name": "Music",
       "description": "description"
-    },
-    {
-      "id": 15,
-      "name": "Books",
-      "description": "description"
-    },
-    {
-      "name": "hey",
-      "description": "description",
-      "id": 16
-    },
-    {
-      "name": "bet",
-      "description": "description",
-      "id": 17
-    },
-    {
-      "name": "aa",
-      "description": "aaa",
-      "id": 18
-    },
-    {
-      "name": "no",
-      "description": "mp",
-      "id": 19
-    },
-    {
-      "name": "finally",
-      "description": "yehh",
-      "id": 20
-    },
-    {
-      "name": "yeaa",
-      "description": "****",
-      "id": 21
-    },
-    {
-      "name": "",
-      "description": "",
-      "id": 22
-    },
-    {
-      "name": "//",
-      "description": "",
-      "id": 23
     }
   ],
   "products": [
     {
       "id": 1,
-      "name": "COTTON SAREE",
-      "rating": 4.9,
-      "description": "description"
+      "name": "COTTON SAREE ooo",
+      "description": "description",
+      "rating": 4.9
     },
     {
       "id": 2,
@@ -156,54 +111,8 @@
     {
       "id": 7,
       "name": "NAVRATRI",
-      "rating": 4.9,
-      "description": "description"
-    },
-    {
-      "id": 8,
-      "name": "SILK SAREE",
-      "rating": 4.9,
-      "description": "description"
-    },
-    {
-      "name": "1",
-      "description": "11",
-      "id": 9
-    },
-    {
-      "name": "22",
-      "description": "22",
-      "id": 10
-    },
-    {
-      "name": "23",
-      "description": "33",
-      "rating": "3.4",
-      "id": 11
-    },
-    {
-      "name": "aa",
-      "description": "ss",
-      "rating": "12",
-      "id": 12
-    },
-    {
-      "name": "last",
-      "description": "lastee",
-      "rating": "rate",
-      "id": 13
-    },
-    {
-      "name": "123",
-      "description": "321",
-      "rating": "122",
-      "id": 14
-    },
-    {
-      "name": "yeaa",
-      "description": "**",
-      "rating": "***",
-      "id": 15
+      "description": "description",
+      "rating": 4.9
     }
   ]
 }
