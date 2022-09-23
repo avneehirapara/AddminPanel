@@ -114,5 +114,18 @@
       "description": "description",
       "rating": 4.9
     }
+  ],
+  "Price":[
+    {
+      "id":1,
+      "Price":2000
+    },
+    {
+      "id":2,
+      "Price":2000
+    }, {
+      "id":3,
+      "Price":2000
+    }
   ]
 }
