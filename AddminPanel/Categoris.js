@@ -18,19 +18,26 @@ export default function Categoris({navigation}) {
   const [description, setDescription] = useState('');
   const [update, setUpdate] = useState(false);
   const [uid, setUId] = useState(0);
+  const [set, Reset] = useState(0);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getcategry())
+  
   }, [])
 
   const cat = useSelector(state => state.Catagaris);
 
   // console.log("final", cat.Catagaris);
 
+  const handelAddDataaaa = () => {
+    
+  }
+
+
   const handelAddData = () => {
-    dispatch(addCategory({ name: name, description }))
+    dispatch(addCategory({ name: name, description}))
   }
 
   const handeldelet = (id) => {

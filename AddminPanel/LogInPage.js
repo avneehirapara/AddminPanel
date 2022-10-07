@@ -4,10 +4,34 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import auth from '@react-native-firebase/auth';
+import { useState } from 'react';
 
 
 
 export default function LogInPage({navigation}) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const createUserEmail = () => {
+    console.log(email, password);
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('User account created & signed in!');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
+  }
   return (
     <View style={styles.container}>
     
@@ -20,7 +44,8 @@ export default function LogInPage({navigation}) {
       <View style={styles.MobileBox}>
         <Feather name='phone' style={styles.InputIcon} />
         <TextInput style={styles.TextInput}
-          placeholder='Mobile number'
+          placeholder='Email Id'
+          onChangeText={(text) => setEmail(text)}
         />
       </View>
       {/* ----------------------LOCK INPUT --------------------- */}
@@ -28,6 +53,7 @@ export default function LogInPage({navigation}) {
         <Feather name='lock' style={styles.InputIcon} />
         <TextInput style={styles.TextInput}
           placeholder='Password'
+          onChangeText={(text) => setPassword(text)}
         />
         <TouchableOpacity>
           <AntDesign name='eyeo' style={styles.eyeIcon} />
@@ -75,7 +101,7 @@ export default function LogInPage({navigation}) {
       </View>
 
       {/* ----------------------SIGN IN BUTTON --------------------- */}
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => createUserEmail()}>
         <View style={styles.SignInButton}>
 
           <Text style={styles.SignInText}>sign in</Text>

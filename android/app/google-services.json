@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "157493107562",
+    "project_id": "addminpanel",
+    "storage_bucket": "addminpanel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157493107562:android:13e33149f4169812466313",
+        "android_client_info": {
+          "package_name": "com.addminpanel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157493107562-qqh3mgushv6i166g2fulnhohov22e6oo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.addminpanel",
+            "certificate_hash": "935d067f12daa67a45eb724d6857df4f5eb427e0"
+          }
+        },
+        {
+          "client_id": "157493107562-1ak6eoph5jnrdvrtscskhr4pur2rc6jt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI4IiEihr3JJU4Yvukuvo2TymvM2WxX-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157493107562-1ak6eoph5jnrdvrtscskhr4pur2rc6jt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

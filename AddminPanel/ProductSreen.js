@@ -9,6 +9,7 @@ import { addProduct, deleteProduct, EditProduct, getproduct } from './redux/acti
 import { useEffect } from 'react'
 import { longPressHandlerName } from 'react-native-gesture-handler/lib/typescript/handlers/LongPressGestureHandler'
 
+
 export default function ProductSreen() {
 
     const [modalVisible, setModalVisible] = useState(false);

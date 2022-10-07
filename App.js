@@ -16,11 +16,11 @@ export default function App() {
   let store = configstoreg();
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      {/* <NavigationContainer>
         <DrawerNavgation />
-      </NavigationContainer>
-      {/* <ProductSreen /> */}
-      {/* <LogInPage/> */}
+      </NavigationContainer> */}
+      <ProductSreen />
+      {/* <Categoris/> */}
       {/* <SignUp/> */}
     </Provider>
   )
