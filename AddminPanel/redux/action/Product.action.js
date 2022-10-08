@@ -1,8 +1,7 @@
 import { BASE_URL } from "../../utilts/BaseUrl"
 import * as ActionType from '../reducer/ActionType'
 import firestore from '@react-native-firebase/firestore';
-
-
+import storage from '@react-native-firebase/storage';
 
 export const getproduct = () => (dispatch) => {
     try {
@@ -27,14 +26,24 @@ export const getproduct = () => (dispatch) => {
 }
 
 
-export const addProduct = (data) => (dispatch) => {
-    //    console.log("yess",data);
+export const addProduct = (data) => async (dispatch) => {
+       console.log("yess",data);
     try {
+        let ranNum = Math.floor(Math.random()*1000).toString();
+
+        const reference = storage().ref('/products/'+ranNum);
+
+        await reference.putFile(data.pro_image);
+
+        const url = await storage().ref('/products/'+ranNum).getDownloadURL();
+
+        console.log(url);
+
         firestore()
             .collection('products')
-            .add(data)
+            .add({name: data.name, description: data.description, rating: data.rating, fileName: ranNum, pro_img: url})
             .then(() => {
-                dispatch({ type: ActionType.ADD_PRODUCT, payload: data });
+                dispatch({ type: ActionType.ADD_PRODUCT, payload: {name: data.name, description: data.description, rating: data.rating, fileName: ranNum, pro_img: url} });
             });
         //   fetch( BASE_URL+'products/', {
         //      method: 'POST', 

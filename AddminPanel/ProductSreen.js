@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, StyleSheet, Modal, TouchableOpacity, FlatList, Pressable, TextInput } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Modal, TouchableOpacity, FlatList, Pressable, TextInput, Image } from 'react-native'
 import React, { useState } from "react"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
@@ -8,15 +8,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addProduct, deleteProduct, EditProduct, getproduct } from './redux/action/Product.action'
 import { useEffect } from 'react'
 import { longPressHandlerName } from 'react-native-gesture-handler/lib/typescript/handlers/LongPressGestureHandler'
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default function ProductSreen() {
 
     const [modalVisible, setModalVisible] = useState(false);
-    const [Name , setName] = useState();
-    const [Description , setDescription] = useState();
-    const [Rate , setRate] = useState();
-    const [Update , setUpdate] = useState();
-    const [Id , setId ] = useState();
+    const [Name, setName] = useState();
+    const [Description, setDescription] = useState();
+    const [image, setImage] = useState('');
+    const [Rate, setRate] = useState();
+    const [Update, setUpdate] = useState();
+    const [Id, setId] = useState();
 
     const dispatch = useDispatch();
 
@@ -27,7 +29,7 @@ export default function ProductSreen() {
     const resetdata = () => {
         setName('')
         setDescription('')
-      }
+    }
 
     const pro = useSelector(state => state.Product);
 
@@ -35,28 +37,38 @@ export default function ProductSreen() {
 
     const AddData = () => {
         // console.log(data);
-        dispatch(addProduct({ name: Name, description:Description,rating:Rate }))
-      }
+        dispatch(addProduct({ name: Name, description: Description, rating: Rate, pro_image: image }))
+    }
 
-      const handeldelet = (id) => {
+    const handeldelet = (id) => {
         // console.log(id);
         dispatch(deleteProduct(id))
-      }
+    }
 
-   const  handeleditdata = (data) => {
-       setId(data.id)
-       setName(data.name)
-       setDescription(data.description)
-       setRate(data.rating)
-       setModalVisible(true)
-       setUpdate(true)
-   }
+    const handeleditdata = (data) => {
+        setId(data.id)
+        setName(data.name)
+        setDescription(data.description)
+        setRate(data.rating)
+        setModalVisible(true)
+        setUpdate(true)
+    }
 
-      const handeledit = () => {
+    const handeledit = () => {
         // console.log("update"+ data);
-        dispatch(EditProduct({id:Id , name:Name , description:Description ,rating:Rate}))
-      }
+        dispatch(EditProduct({ id: Id, name: Name, description: Description, rating: Rate }))
+    }
 
+    const handleImagePicker = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        }).then(image => {
+            setImage(image.path)
+            console.log("iiiiiiiiiiiiiiiiiiiiiiiiiiiii",image);
+        });
+    }
 
     const Clothsdata = ({ item }) => {
 
@@ -65,7 +77,7 @@ export default function ProductSreen() {
             <TouchableOpacity  >
                 <View style={styles.ProductCard}>
                     <View >
-                        {/* <Image source={item.image} style={styles.foodimg}></Image> */}
+                        <Image source={{uri: item.pro_img}} style={styles.foodimg}></Image>
                     </View>
                     <View >
                         <View style={{ marginLeft: 10 }}>
@@ -84,10 +96,10 @@ export default function ProductSreen() {
 
                     </View>
                     <View style={{ flexDirection: "row", alignItems: "flex-end", justifyContent: 'flex-end', }}>
-                        <TouchableOpacity onPress={()=>handeleditdata(item)}>
+                        <TouchableOpacity onPress={() => handeleditdata(item)}>
                             <MaterialIcons name={'edit'} style={styles.edit} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>handeldelet(item.id)} >
+                        <TouchableOpacity onPress={() => handeldelet(item.id)} >
                             <MaterialCommunityIcons name={'delete'} style={styles.dlt} />
                         </TouchableOpacity>
                     </View>
@@ -99,22 +111,22 @@ export default function ProductSreen() {
     }
 
     return (
-<View style={styles.screen}>
-    
-<ScrollView>
-            <View style={styles.container}>
+        <View style={styles.screen}>
 
-                <View>
-                    <FlatList
-                        numColumns={2}
-                        data={pro.product}
-                        renderItem={Clothsdata}
-                        keyExtractor={item => item.id}
-                    >
-                    </FlatList>
-                </View>
+            <ScrollView>
+                <View style={styles.container}>
 
-                {/* <View >
+                    <View>
+                        <FlatList
+                            numColumns={2}
+                            data={pro.product}
+                            renderItem={Clothsdata}
+                            keyExtractor={item => item.id}
+                        >
+                        </FlatList>
+                    </View>
+
+                    {/* <View >
                     <TouchableOpacity style={styles.all}>
                         <View style={styles.seemore}>
                             <Text>See More</Text>
@@ -123,76 +135,81 @@ export default function ProductSreen() {
                     </TouchableOpacity>
                 </View> */}
 
-            </View>
-        </ScrollView>
-        <View style={styles.container}>
-        <View style={styles.centeredView} >
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert("Modal has been closed.");
-                        setModalVisible(!modalVisible);
-                    }}
-                >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
+                </View>
+            </ScrollView>
+            <View style={styles.container}>
+                <View style={styles.centeredView} >
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert("Modal has been closed.");
+                            setModalVisible(!modalVisible);
+                        }}
+                    >
+                        <View style={styles.centeredView}>
+                            <View style={styles.modalView}>
 
-                            <TextInput
-                                style={styles.modalText}
-                                placeholder='PRODUCT NAME'
-                                onChangeText={(text) => setName(text)}
-                                value={Name}
-                            />
-                            <TextInput
-                                style={styles.modalText}
-                                placeholder='PRODUCT DISCRIPTION'
-                                onChangeText={(text) => setDescription(text)}
-                                value={Description}
-                            />
-                             <TextInput
-                                style={styles.modalText}
-                                placeholder='PRODUCT RATE'
-                                onChangeText={(text) => setRate(text)}
-                                value={Rate}
-                            />
-                             <View style={{ flexDirection: 'row' }}>
-                                {
-                                    Update ?
+                                <TextInput
+                                    style={styles.modalText}
+                                    placeholder='PRODUCT NAME'
+                                    onChangeText={(text) => setName(text)}
+                                    value={Name}
+                                />
+                                <TextInput
+                                    style={styles.modalText}
+                                    placeholder='PRODUCT DISCRIPTION'
+                                    onChangeText={(text) => setDescription(text)}
+                                    value={Description}
+                                />
+                                <TextInput
+                                    style={styles.modalText}
+                                    placeholder='PRODUCT RATE'
+                                    onChangeText={(text) => setRate(text)}
+                                    value={Rate}
+                                />
+                                <TouchableOpacity
+                                    onPress={() => handleImagePicker()}
+                                >
+                                    <Text>Upload Image</Text>
+                                </TouchableOpacity>
+                                <View style={{ flexDirection: 'row' }}>
+                                    {
+                                        Update ?
+                                            <Pressable
+                                                style={[styles.button, styles.buttonClose, styles.btn2]}
+                                                onPress={() => { handeledit(); setModalVisible(!modalVisible) }} >
+                                                <Text style={styles.textStyle}>UPDATE</Text>
+                                            </Pressable>
+                                            :
+                                            <Pressable
+                                                style={[styles.button, styles.buttonClose, styles.btn2]}
+                                                onPress={() => { AddData(); setModalVisible(!modalVisible) }} >
+                                                <Text style={styles.textStyle}>ADD</Text>
+                                            </Pressable>
+                                    }
+
                                     <Pressable
-                                    style={[styles.button, styles.buttonClose ,styles.btn2]}
-                                    onPress={() => {handeledit(); setModalVisible(!modalVisible) }} >
-                                    <Text style={styles.textStyle}>UPDATE</Text>
-                                </Pressable>
-                                :
-                                <Pressable
-                                style={[styles.button, styles.buttonClose ,styles.btn2]}
-                                onPress={() => {AddData(); setModalVisible(!modalVisible) }} >
-                                <Text style={styles.textStyle}>ADD</Text>
-                            </Pressable>
-                                }
-                           
-                            <Pressable
-                                style={[styles.button, styles.buttonClose, styles.btn2]}
-                                onPress={() => { setModalVisible(!modalVisible) }}
-                            >
-                                <Text style={styles.textStyle}>CANCEL</Text>
-                            </Pressable>
+                                        style={[styles.button, styles.buttonClose, styles.btn2]}
+                                        onPress={() => { setModalVisible(!modalVisible) }}
+                                    >
+                                        <Text style={styles.textStyle}>CANCEL</Text>
+                                    </Pressable>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                </Modal>
-                <Pressable
-                    style={[styles.button, styles.buttonOpen, styles.btn]}
-                    onPress={() => {setModalVisible(true);setUpdate(false);resetdata()}}>
-                    <Text style={styles.textStyle}>ADD PRODUCT</Text>
-                </Pressable>
+                    </Modal>
+                    <Pressable
+                        style={[styles.button, styles.buttonOpen, styles.btn]}
+                        onPress={() => { setModalVisible(true); setUpdate(false); resetdata() }}>
+                        <Text style={styles.textStyle}>ADD PRODUCT</Text>
+                    </Pressable>
 
+                </View>
             </View>
+
         </View>
-        
-</View>
     )
 }
 
@@ -230,8 +247,8 @@ let styles = StyleSheet.create({
         fontWeight: "500",
         fontSize: 18,
         marginTop: 10,
-        textTransform:'capitalize',
-        top:200
+        textTransform: 'capitalize',
+        top: 200
     },
     pricepizza: {
         color: 'black',
@@ -243,7 +260,7 @@ let styles = StyleSheet.create({
         color: 'black',
         fontSize: 12,
         marginTop: 5,
-        top:200,
+        top: 200,
         // flexWrap: "wrap"
 
     },
@@ -337,7 +354,7 @@ let styles = StyleSheet.create({
         padding: 10,
         elevation: 2,
         width: 200,
-        height:40
+        height: 40
     },
     buttonOpen: {
         backgroundColor: "#2196F3",
