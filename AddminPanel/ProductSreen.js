@@ -9,7 +9,6 @@ import { addProduct, deleteProduct, EditProduct, getproduct } from './redux/acti
 import { useEffect } from 'react'
 import { longPressHandlerName } from 'react-native-gesture-handler/lib/typescript/handlers/LongPressGestureHandler'
 
-
 export default function ProductSreen() {
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -24,6 +23,11 @@ export default function ProductSreen() {
     useEffect(() => {
         dispatch(getproduct())
     }, [])
+
+    const resetdata = () => {
+        setName('')
+        setDescription('')
+      }
 
     const pro = useSelector(state => state.Product);
 
@@ -95,8 +99,9 @@ export default function ProductSreen() {
     }
 
     return (
-
-        <ScrollView style={styles.screen}>
+<View style={styles.screen}>
+    
+<ScrollView>
             <View style={styles.container}>
 
                 <View>
@@ -119,7 +124,9 @@ export default function ProductSreen() {
                 </View> */}
 
             </View>
-            <View style={styles.centeredView}>
+        </ScrollView>
+        <View style={styles.container}>
+        <View style={styles.centeredView} >
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -178,14 +185,14 @@ export default function ProductSreen() {
                 </Modal>
                 <Pressable
                     style={[styles.button, styles.buttonOpen, styles.btn]}
-                    onPress={() => {setModalVisible(true);setUpdate(false)} }
-                >
+                    onPress={() => {setModalVisible(true);setUpdate(false);resetdata()}}>
                     <Text style={styles.textStyle}>ADD PRODUCT</Text>
                 </Pressable>
 
             </View>
-
-        </ScrollView>
+        </View>
+        
+</View>
     )
 }
 
@@ -329,7 +336,8 @@ let styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         elevation: 2,
-        width: 200
+        width: 200,
+        height:40
     },
     buttonOpen: {
         backgroundColor: "#2196F3",

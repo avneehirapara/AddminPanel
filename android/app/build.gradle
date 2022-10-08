@@ -233,6 +233,7 @@ android {
             keyPassword 'android'
         }
     }
+    namespace 'com.addminpanel'
     buildTypes {
         debug {
             signingConfig signingConfigs.debug

@@ -31,8 +31,9 @@ export default function Categoris({navigation}) {
 
   // console.log("final", cat.Catagaris);
 
-  const handelAddDataaaa = () => {
-    
+  const resetdata = () => {
+    setName('')
+    setDescription('')
   }
 
 
@@ -190,6 +191,7 @@ export default function Categoris({navigation}) {
           onRequestClose={() => {
             Alert.alert("Modal has been closed.");
             setModalVisible(!modalVisible);
+            resetdata()
           }}
         >
           <View style={Styles.centeredView}>
