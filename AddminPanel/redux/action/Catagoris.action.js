@@ -1,5 +1,9 @@
 import { BASE_URL } from '../../utilts/BaseUrl';
 import * as ActionType from '../reducer/ActionType'
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+
+
 
 export const getcategry = () => async (dispatch) => {
     try {

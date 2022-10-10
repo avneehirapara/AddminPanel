@@ -18,7 +18,6 @@ export default function Categoris({navigation}) {
   const [description, setDescription] = useState('');
   const [update, setUpdate] = useState(false);
   const [uid, setUId] = useState(0);
-  const [set, Reset] = useState(0);
 
   const dispatch = useDispatch();
 

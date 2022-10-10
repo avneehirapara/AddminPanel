@@ -40,9 +40,9 @@ export default function ProductSreen() {
         dispatch(addProduct({ name: Name, description: Description, rating: Rate, pro_image: image }))
     }
 
-    const handeldelet = (id) => {
+    const handeldelet = (id, fileName) => {
         // console.log(id);
-        dispatch(deleteProduct(id))
+        dispatch(deleteProduct(id, fileName))
     }
 
     const handeleditdata = (data) => {
@@ -76,9 +76,9 @@ export default function ProductSreen() {
 
             <TouchableOpacity  >
                 <View style={styles.ProductCard}>
-                    <View >
+                    {/* <View >
                         <Image source={{uri: item.pro_img}} style={styles.foodimg}></Image>
-                    </View>
+                    </View> */}
                     <View >
                         <View style={{ marginLeft: 10 }}>
                             <View>
@@ -99,7 +99,7 @@ export default function ProductSreen() {
                         <TouchableOpacity onPress={() => handeleditdata(item)}>
                             <MaterialIcons name={'edit'} style={styles.edit} />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => handeldelet(item.id)} >
+                        <TouchableOpacity onPress={() => handeldelet(item.id, item.fileName)} >
                             <MaterialCommunityIcons name={'delete'} style={styles.dlt} />
                         </TouchableOpacity>
                     </View>

@@ -27,23 +27,23 @@ export const getproduct = () => (dispatch) => {
 
 
 export const addProduct = (data) => async (dispatch) => {
-       console.log("yess",data);
+    // console.log("yess", data);
     try {
-        let ranNum = Math.floor(Math.random()*1000).toString();
+        let ranNum = Math.floor(Math.random() * 1000).toString();
 
-        const reference = storage().ref('/products/'+ranNum);
+        const reference = storage().ref('/products/' + ranNum);
 
         await reference.putFile(data.pro_image);
 
-        const url = await storage().ref('/products/'+ranNum).getDownloadURL();
+        const url = await storage().ref('/products/' + ranNum).getDownloadURL();
 
         console.log(url);
 
         firestore()
             .collection('products')
-            .add({name: data.name, description: data.description, rating: data.rating, fileName: ranNum, pro_img: url})
+            .add({ name: data.name, description: data.description, rating: data.rating, fileName: ranNum, pro_img: url })
             .then(() => {
-                dispatch({ type: ActionType.ADD_PRODUCT, payload: {name: data.name, description: data.description, rating: data.rating, fileName: ranNum, pro_img: url} });
+                dispatch({ type: ActionType.ADD_PRODUCT, payload: { name: data.name, description: data.description, rating: data.rating, fileName: ranNum, pro_img: url } });
             });
         //   fetch( BASE_URL+'products/', {
         //      method: 'POST', 
@@ -67,16 +67,25 @@ export const addProduct = (data) => async (dispatch) => {
 
 }
 
-export const deleteProduct = (id) => (dispatch) => {
-    // console.log("here" + id);
+export const deleteProduct = (id, fileName) => (dispatch) => {
+    console.log("fileNamefileNamefileNamefileNamefileName", id, fileName);
     try {
-        firestore()
-            .collection('products')
-            .doc(id)
+        const delReference = storage().ref('/products/' + fileName);
+
+        delReference
             .delete()
-            .then(() => {
-                dispatch({ type: ActionType.DELETE_PRODUCT, payload: id })
+            .then(function () {
+                firestore()
+                    .collection('products')
+                    .doc(id)
+                    .delete()
+                    .then(() => {
+                        dispatch({ type: ActionType.DELETE_PRODUCT, payload: id })
+                    });
+            }).catch(function (error) {
+                // Uh-oh, an error occurred!
             });
+
         // fetch(BASE_URL + 'products/' + id, {
         //     method: 'DELETE',
         // })
