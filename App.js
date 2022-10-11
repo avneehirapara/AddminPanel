@@ -19,8 +19,8 @@ export default function App() {
       {/* <NavigationContainer>
         <DrawerNavgation />
       </NavigationContainer> */}
-      {/* <ProductSreen /> */}
-      <Categoris/>
+      <ProductSreen />
+      {/* <Categoris/> */}
       {/* <SignUp/> */}
     </Provider>
   )

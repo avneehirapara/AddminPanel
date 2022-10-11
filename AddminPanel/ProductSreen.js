@@ -18,6 +18,7 @@ export default function ProductSreen() {
     const [image, setImage] = useState('');
     const [Rate, setRate] = useState();
     const [Update, setUpdate] = useState();
+    const [fileName, setFileName] = useState('')
     const [Id, setId] = useState();
 
     const dispatch = useDispatch();
@@ -41,22 +42,25 @@ export default function ProductSreen() {
     }
 
     const handeldelet = (id, fileName) => {
-        // console.log(id);
+        console.log(id,fileName);
         dispatch(deleteProduct(id, fileName))
     }
 
     const handeleditdata = (data) => {
+        console.log(data);
         setId(data.id)
         setName(data.name)
         setDescription(data.description)
         setRate(data.rating)
+        setImage(data.pro_img)
+        setFileName(data.fileName)
         setModalVisible(true)
         setUpdate(true)
     }
 
     const handeledit = () => {
         // console.log("update"+ data);
-        dispatch(EditProduct({ id: Id, name: Name, description: Description, rating: Rate }))
+        dispatch(EditProduct({ id: Id, name: Name, description: Description, rating: Rate, pro_image: image, fileName: fileName }))
     }
 
     const handleImagePicker = () => {
@@ -66,7 +70,7 @@ export default function ProductSreen() {
             cropping: true
         }).then(image => {
             setImage(image.path)
-            console.log("iiiiiiiiiiiiiiiiiiiiiiiiiiiii",image);
+            console.log("iiiiiiiiiiiiiiiiiiiiiiiiiiiii", image);
         });
     }
 
@@ -74,38 +78,37 @@ export default function ProductSreen() {
 
         return (
 
-            <TouchableOpacity  >
-                <View style={styles.ProductCard}>
-                    {/* <View >
-                        <Image source={{uri: item.pro_img}} style={styles.foodimg}></Image>
-                    </View> */}
-                    <View >
-                        <View style={{ marginLeft: 10 }}>
-                            <View>
-                                <Text style={styles.Hname}>{item.name}</Text>
-                            </View>
-                            <View>
-                                {/* <Text style={styles.pricepizza}>{item.price}</Text> */}
-                                <Text style={styles.description}>{item.description}</Text>
-                            </View>
-                            <View style={styles.Prate}>
-                                <Text style={styles.rate}>{item.rating}</Text>
-                                <FontAwesome name={'star'} style={styles.star} />
-                            </View>
-                        </View>
 
-                    </View>
-                    <View style={{ flexDirection: "row", alignItems: "flex-end", justifyContent: 'flex-end', }}>
-                        <TouchableOpacity onPress={() => handeleditdata(item)}>
-                            <MaterialIcons name={'edit'} style={styles.edit} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => handeldelet(item.id, item.fileName)} >
-                            <MaterialCommunityIcons name={'delete'} style={styles.dlt} />
-                        </TouchableOpacity>
+            <View style={styles.ProductCard}>
+                <View >
+                    <Image source={{ uri: item.pro_img }} style={styles.foodimg}></Image>
+                </View>
+                <View >
+                    <View style={{ marginLeft: 10 }}>
+                        <View>
+                            <Text style={styles.Hname}>{item.name}</Text>
+                        </View>
+                        <View>
+                            {/* <Text style={styles.pricepizza}>{item.price}</Text> */}
+                            {/* <Text style={styles.Hname}>{item.description}</Text> */}
+                        </View>
+                        <View style={styles.Prate}>
+                            {/* <Text style={styles.rate}>{item.rating}</Text> */}
+                            {/* <FontAwesome name={'star'} style={styles.star} /> */}
+                        </View>
                     </View>
 
                 </View>
-            </TouchableOpacity>
+                <View style={{ flexDirection: "row", alignItems: "flex-end", justifyContent: 'flex-end', }}>
+                    <TouchableOpacity onPress={() => handeleditdata(item)}>
+                        <MaterialIcons name={'edit'} style={styles.edit} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => handeldelet(item.id, item.fileName)} >
+                        <MaterialCommunityIcons name={'delete'} style={styles.dlt} />
+                    </TouchableOpacity>
+                </View>
+
+            </View>
 
         )
     }
@@ -230,40 +233,32 @@ let styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#F3F3F3',
         marginBottom: 15,
-        marginRight: 20,
+        marginRight: 15,
+        // marginLeft: 15,
         marginTop: 10,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        backgroundColor:'#E5E7E9'
 
     },
     foodimg: {
-        height: 150,
-        width: 150,
-        borderTopLeftRadius: 20,
-        borderBottomLeftRadius: 20,
-        marginBottom: 20
+        height: 250,
+        width: 162,
+        borderRadius: 10,
     },
     Hname: {
+        top: 12,
         color: 'black',
-        fontWeight: "500",
-        fontSize: 18,
-        marginTop: 10,
-        textTransform: 'capitalize',
-        top: 200
+        fontSize: 15,
+        fontFamily: 'Montserrat-Medium',
+        marginHorizontal: 5,
+        bottom: 10,
     },
-    pricepizza: {
-        color: 'black',
-        // fontWeight: "500",
-        fontSize: 16,
-        marginTop: 20
-    },
-    description: {
-        color: 'black',
-        fontSize: 12,
-        marginTop: 5,
-        top: 200,
-        // flexWrap: "wrap"
-
-    },
+    // pricepizza: {
+    //     color: 'black',
+    //     // fontWeight: "500",
+    //     fontSize: 16,
+    //     marginTop: 20
+    // },
     rate: {
         height: 25,
         width: 50,
@@ -288,16 +283,15 @@ let styles = StyleSheet.create({
         marginLeft: 4
     },
     edit: {
-        fontSize: 20,
-        color: "black",
-        right: 20,
-        top: 175
+        color: 'black',
+        fontSize: 18,
+        // left: 120,
+        bottom: 10,
     },
     dlt: {
-        fontSize: 20,
-        color: "black",
-        right: 20,
-        top: 175
+        color: 'black',
+        fontSize: 18,
+        bottom: 10,
     },
     all: {
         flexDirection: "row",

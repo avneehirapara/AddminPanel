@@ -27,14 +27,23 @@ export const getcategry = () => async (dispatch) => {
     }
 }
 
-export const addCategory = (data) => (dispatch) => {
-    // console.log(data);
+export const addCategory = (data) => async (dispatch) => {
+    // console.log("ttttttt",data);
     try {
+        let ranNum = Math.floor(Math.random() * 1000).toString();
+
+        const reference = storage().ref('/Category/' + ranNum);
+
+        await reference.putFile(data.pro_image);
+
+        const url = await storage().ref('/Category/' + ranNum).getDownloadURL();
+
+        console.log(url);
         firestore()
             .collection('Category')
-            .add(data)
+            .add({name: data.name, description: data.description, fileName: ranNum, pro_img: url})
             .then(() => {
-                dispatch({ type: ActionType.ADD_CATEGORY, payload: data })
+                dispatch({ type: ActionType.ADD_CATEGORY, payload: { name: data.name, description: data.description, fileName: ranNum, pro_img: url }})
             });
         // fetch( BASE_URL +'Catageri/', {
         //     method: 'POST', 
@@ -59,15 +68,23 @@ export const addCategory = (data) => (dispatch) => {
 }
 
 
-export const deleteCategory = (id) => (dispatch) => {
-    console.log(id);
+export const deleteCategory = (id,fileName) => (dispatch) => {
+    console.log("fileNamefileNamefileNamefileNamefileName", id,fileName);
     try {
-        firestore()
-            .collection('Category')
-            .doc(id)
+        const delReference = storage().ref('/Category/' + fileName);
+
+        delReference
             .delete()
-            .then(() => {
-                dispatch({ type: ActionType.DELETE_CATEGORY, payload: id })
+            .then(function () {
+                firestore()
+                    .collection('Category')
+                    .doc(id)
+                    .delete()
+                    .then(() => {
+                        dispatch({ type: ActionType.DELETE_CATEGORY, payload: id })
+                    });
+            }).catch(function (error) {
+                // Uh-oh, an error occurred!
             });
         // fetch(BASE_URL + 'Catageri/' + id, {
         //     method: 'DELETE'

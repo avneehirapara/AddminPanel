@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView, Pressable, Modal } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView, Pressable, Modal, Image } from 'react-native'
 import React, { useEffect } from 'react'
 import Entypo from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -9,21 +9,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addCategory, deleteCategory, getcategry, updateCategory } from './redux/action/Catagoris.action';
 import { useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
+import ImagePicker from 'react-native-image-crop-picker';
 
 
-export default function Categoris({navigation}) {
+
+export default function Categoris({ navigation }) {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [update, setUpdate] = useState(false);
+  const [image, setImage] = useState('');
   const [uid, setUId] = useState(0);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getcategry())
-  
+
   }, [])
 
   const cat = useSelector(state => state.Catagaris);
@@ -37,12 +40,12 @@ export default function Categoris({navigation}) {
 
 
   const handelAddData = () => {
-    dispatch(addCategory({ name: name, description}))
+    dispatch(addCategory({ name: name, description, pro_image: image }))
   }
 
-  const handeldelet = (id) => {
-    // console.log(id);
-    dispatch(deleteCategory(id))
+  const handeldelet = (id, fileName) => {
+    console.log('first yess', id, fileName);
+    dispatch(deleteCategory(id, fileName))
   }
 
   const handleUpdate = (data) => {
@@ -55,6 +58,17 @@ export default function Categoris({navigation}) {
 
   const handelUpdateData = () => {
     dispatch(updateCategory({ id: uid, name, description }))
+  }
+
+  const handleImagePicker = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true
+    }).then(image => {
+      setImage(image.path)
+      console.log("img done", image);
+    });
   }
 
   // const ADDMINPANELDATA = [
@@ -141,20 +155,30 @@ export default function Categoris({navigation}) {
   const PenalDATA = ({ item }) => {
 
     return (
-      <TouchableOpacity onPress={()=>navigation.navigate('ProductSreen')}>
-        <View style={Styles.card}>
-          <Text style={Styles.cardText}>{item.name}</Text>
-          <Text style={Styles.cardText}>{item.description}</Text>
-          <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity onPress={() => handleUpdate(item)}>
-              <Entypo name='pencil' style={Styles.pen} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handeldelet(item.id)}>
-              <MaterialCommunityIcons name='delete' style={Styles.delet} />
-            </TouchableOpacity>
-          </View>
+      <View style={Styles.card}>
+        <View>
+          <Image source={{ uri: item.pro_img }} style={Styles.img}></Image>
         </View>
-      </TouchableOpacity>
+        <View>
+          <Text style={Styles.cardText}>{item.name}</Text>
+        </View>
+        <View>
+          <Text style={Styles.cardText}>{item.description}</Text>
+        </View>
+
+        <View style={{ flexDirection: 'row' }}>
+
+          <TouchableOpacity onPress={() => handleUpdate(item)}>
+            <Entypo name='pencil' style={Styles.pen} />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => handeldelet(item.id, item.fileName)}>
+            <MaterialCommunityIcons name='delete' style={Styles.delet} />
+          </TouchableOpacity>
+
+        </View>
+      </View>
+
     )
   }
 
@@ -207,6 +231,18 @@ export default function Categoris({navigation}) {
                 onChangeText={(text) => setDescription(text)}
                 value={description}
               />
+              <TextInput
+                style={Styles.modalText}
+                placeholder='UPLOAD IMG'
+                onChangeText={(text) => setDescription(text)}
+                value={description}
+              />
+
+              <TouchableOpacity
+                onPress={() => handleImagePicker()}
+              >
+                <Text>Upload Image</Text>
+              </TouchableOpacity>
               <View style={{ flexDirection: 'row' }}>
                 {
                   update ?
@@ -268,14 +304,6 @@ const Styles = StyleSheet.create({
     fontSize: 25,
   },
   card: {
-    // height: 300,
-    // width: 165,
-    // backgroundColor: '#F3F3F3',
-    // marginBottom: 15,
-    // marginLeft: 15,
-    // marginRight: 15,
-    // marginTop: 10,
-    // alignSelf: 'center'
     height: 300,
     width: 165,
     borderWidth: 1,
@@ -283,40 +311,44 @@ const Styles = StyleSheet.create({
     backgroundColor: '#F3F3F3',
     marginBottom: 15,
     marginRight: 15,
-    marginLeft:15,
+    marginLeft: 15,
     marginTop: 10,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    backgroundColor:'#E5E7E9'
 
   },
+  img: {
+    height: 250,
+    width: 162,
+    borderRadius: 10,
+  },
   cardText: {
-    top: 15,
+    top: 9,
     color: 'black',
     fontSize: 15,
     fontFamily: 'Montserrat-Medium',
     marginHorizontal: 5,
-    top:250
+    bottom: 20,
   },
   PlusIcon: {
     fontSize: 35,
     color: "#3498DB",
     alignSelf: 'flex-end',
     right: 20,
-    
+
 
   },
   pen: {
     color: 'black',
     fontSize: 18,
     left: 120,
-    bottom: 5,
-    top:230
+    bottom: 20,
   },
   delet: {
     color: 'black',
     fontSize: 18,
     left: 120,
-    bottom: 5,
-    top:230
+    bottom: 20,
 
   },
   btn: {

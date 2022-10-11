@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getcategry } from './redux/action/Catagoris.action';
 import { getPrice } from './redux/action/Price.action';
+import { not } from 'react-native-reanimated';
 
 export default function Catagari1() {
 

@@ -3,10 +3,11 @@ import * as ActionType from '../reducer/ActionType'
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 
-export const getproduct = () => (dispatch) => {
+export const getproduct = () => async (dispatch) => {
+    // console.log("getproductgetproductgetproduct");
     try {
         let data = [];
-        firestore()
+        await firestore()
             .collection('products')
             .get()
             .then(querySnapshot => {
@@ -15,6 +16,7 @@ export const getproduct = () => (dispatch) => {
                     data.push({ id: documentSnapshot.id, ...documentSnapshot.data() })
                 });
             });
+        console.log();
         dispatch({ type: ActionType.GET_PRODUCT, payload: data })
         // fetch(BASE_URL + 'products/')
         //     .then((response) => response.json())
@@ -42,8 +44,9 @@ export const addProduct = (data) => async (dispatch) => {
         firestore()
             .collection('products')
             .add({ name: data.name, description: data.description, rating: data.rating, fileName: ranNum, pro_img: url })
-            .then(() => {
-                dispatch({ type: ActionType.ADD_PRODUCT, payload: { name: data.name, description: data.description, rating: data.rating, fileName: ranNum, pro_img: url } });
+            .then((user) => {
+                // console.log("userrrrrrr", user.id);
+                dispatch({ type: ActionType.ADD_PRODUCT, payload: {id: user.id, name: data.name, description: data.description, rating: data.rating, fileName: ranNum, pro_img: url } });
             });
         //   fetch( BASE_URL+'products/', {
         //      method: 'POST', 
@@ -75,6 +78,7 @@ export const deleteProduct = (id, fileName) => (dispatch) => {
         delReference
             .delete()
             .then(function () {
+                console.log('12233');
                 firestore()
                     .collection('products')
                     .doc(id)
@@ -103,37 +107,82 @@ export const deleteProduct = (id, fileName) => (dispatch) => {
 
 
 
-export const EditProduct = (data) => (dispatch) => {
-    //    console.log("yessEDIT",data);
+export const EditProduct = (data) => async (dispatch) => {
+    console.log("yessEDIT", data);
+    let ranNum = Math.floor(Math.random() * 1000).toString();
+
+    const newReference = storage().ref('/products/' + ranNum);
+
     try {
-        firestore()
-            .collection('products')
-            .doc(data.id)
-            .update({
-                name: data.name,
-                description: data.description,
-                rating: data.rating
-            })
-            .then(() => {
-                dispatch({ type: ActionType.UPDATE_PRODUCT, payload: data })
-            });
-        // fetch(BASE_URL + 'products/' + data.id, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(data),
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => dispatch({ type: ActionType.UPDATE_PRODUCT, payload: data }))
-        //     // {
-        //     //   console.log('Success:', data);
-        //     // })
-        //     .catch((error) => {
-        //         console.error('Error:', error);
-        //     });
-    }
-    catch (e) {
+        if (!data.pro_image.search(/^http[s]?:\/\//)) {
+            await firestore()
+                .collection('products')
+                .doc(data.id)
+                .update({
+                    name: data.name,
+                    description: data.description,
+                    rating: data.rating
+                })
+                .then(() => {
+                    dispatch({ type: ActionType.UPDATE_PRODUCT, payload: data })
+                });
+        } else {
+            // 1. remove old image
+            // 2. upload new image
+            // 3. new url update in cloud firestore
+
+            const delReference = storage().ref('/products/' + data.fileName);
+
+            delReference
+                .delete()
+                .then(async () => {
+                    await newReference.putFile(data.pro_image);
+
+                    const url = await storage().ref('/products/' + ranNum).getDownloadURL();
+
+                    console.log(url);
+
+                    await firestore()
+                        .collection('products')
+                        .doc(data.id)
+                        .update({
+                            name: data.name,
+                            description: data.description,
+                            rating: data.rating,
+                            fileName: ranNum,
+                            pro_img: url
+                        })
+                        .then(() => {
+                            dispatch({
+                                type: ActionType.UPDATE_PRODUCT,
+                                payload: {
+                                    id: data.id,
+                                    name: data.name,
+                                    description: data.description,
+                                    rating: data.rating,
+                                    fileName: ranNum,
+                                    pro_img: url
+                                }
+                            })
+                        });
+                })
+            // fetch(BASE_URL + 'products/' + data.id, {
+            //     method: 'PUT',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(data),
+            // })
+            //     .then((response) => response.json())
+            //     .then((data) => dispatch({ type: ActionType.UPDATE_PRODUCT, payload: data }))
+            //     // {
+            //     //   console.log('Success:', data);
+            //     // })
+            //     .catch((error) => {
+            //         console.error('Error:', error);
+            //     });
+        }
+    } catch (e) {
         console.log(e);
     }
 
