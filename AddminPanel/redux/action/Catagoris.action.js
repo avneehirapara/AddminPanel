@@ -69,7 +69,7 @@ export const addCategory = (data) => async (dispatch) => {
 
 
 export const deleteCategory = (id,fileName) => (dispatch) => {
-    console.log("fileNamefileNamefileNamefileNamefileName", id,fileName);
+    // console.log("fileNamefileNamefileNamefileNamefileName", id,fileName);
     try {
         const delReference = storage().ref('/Category/' + fileName);
 
@@ -99,7 +99,7 @@ export const deleteCategory = (id,fileName) => (dispatch) => {
 }
 
 export const updateCategory = (data) => (dispatch) => {
-    console.log(data, "yesssssss");
+    // console.log(data, "yesssssss");
     try {
         firestore()
             .collection('Category')

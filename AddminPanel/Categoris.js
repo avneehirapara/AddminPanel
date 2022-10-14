@@ -19,6 +19,7 @@ export default function Categoris({ navigation }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [update, setUpdate] = useState(false);
+  const [fileName, setFileName] = useState('')
   const [image, setImage] = useState('');
   const [uid, setUId] = useState(0);
 
@@ -44,7 +45,7 @@ export default function Categoris({ navigation }) {
   }
 
   const handeldelet = (id, fileName) => {
-    console.log('first yess', id, fileName);
+    // console.log('first yess', id, fileName);
     dispatch(deleteCategory(id, fileName))
   }
 
@@ -52,6 +53,8 @@ export default function Categoris({ navigation }) {
     setUId(data.id)
     setName(data.name)
     setDescription(data.description)
+    setImage(data.pro_img)
+    setFileName(data.fileName)
     setModalVisible(true)
     setUpdate(true)
   }
@@ -231,13 +234,6 @@ export default function Categoris({ navigation }) {
                 onChangeText={(text) => setDescription(text)}
                 value={description}
               />
-              <TextInput
-                style={Styles.modalText}
-                placeholder='UPLOAD IMG'
-                onChangeText={(text) => setDescription(text)}
-                value={description}
-              />
-
               <TouchableOpacity
                 onPress={() => handleImagePicker()}
               >
@@ -314,7 +310,7 @@ const Styles = StyleSheet.create({
     marginLeft: 15,
     marginTop: 10,
     alignSelf: 'center',
-    backgroundColor:'#E5E7E9'
+    backgroundColor: '#E5E7E9'
 
   },
   img: {
